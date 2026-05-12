@@ -218,8 +218,8 @@
   <div class="kpi-grid">
     <div class="kpi-card kpi-j4">
       <div class="label">What We Learned From</div>
-      <div class="value">$751K</div>
-      <div class="context">total revenue across 3 prior campaigns (J4, BFCM, NPTM)</div>
+      <div class="value">$482K</div>
+      <div class="context">campaign revenue: J4 $189K (App) + BFCM $250K (App) + NPTM $43K (Pro)</div>
     </div>
     <div class="kpi-card kpi-bfcm">
       <div class="label">What We're Building</div>
@@ -296,28 +296,34 @@
         <td>668,208 (Pro individual)</td>
       </tr>
       <tr>
-        <td><strong>Stripe Revenue</strong></td>
-        <td>$165,696 net (1,542 txns)</td>
-        <td>$231,045 net (2,175 txns)</td>
-        <td>$159,334 net (2,093 txns)</td>
+        <td><strong>App Stripe Revenue</strong></td>
+        <td>$140,104 net (992 txns)</td>
+        <td>$181,296 net (1,333 txns)</td>
+        <td>&mdash;</td>
       </tr>
       <tr>
         <td><strong>App Store (RevenueCat)</strong></td>
         <td>$39,460 (297 txns)</td>
         <td>$55,494 (412 txns)</td>
-        <td>$67,580 (540 txns)</td>
+        <td>&mdash;</td>
       </tr>
       <tr>
         <td><strong>Play Store (RevenueCat)</strong></td>
         <td>$9,634 (71 txns)</td>
         <td>$13,277 (86 txns)</td>
-        <td>$9,741 (69 txns)</td>
+        <td>&mdash;</td>
+      </tr>
+      <tr>
+        <td><strong>Pro Stripe Revenue</strong></td>
+        <td>&mdash;</td>
+        <td>&mdash;</td>
+        <td>$42,577 net (1,071 txns)</td>
       </tr>
       <tr style="font-weight:600; background: var(--teal-light);">
-        <td><strong>Total Revenue (All Sources)</strong></td>
-        <td><strong>$214,790</strong></td>
-        <td><strong>$299,816</strong></td>
-        <td><strong>$236,655</strong></td>
+        <td><strong>Total Campaign Revenue</strong></td>
+        <td><strong>$189,198</strong> (App only)</td>
+        <td><strong>$250,067</strong> (App only)</td>
+        <td><strong>$42,577</strong> (Pro Stripe only)</td>
       </tr>
       <tr>
         <td><strong>Products Covered</strong></td>
@@ -511,46 +517,46 @@
     </thead>
     <tbody>
       <tr>
-        <td><strong>Total payers (all sources)</strong></td>
-        <td>1,910 (1,542 Stripe + 368 in-app)</td>
-        <td>2,673 (2,175 Stripe + 498 in-app)</td>
-        <td>2,702 (2,093 Stripe + 609 in-app)</td>
+        <td><strong>App payers (Stripe + RC)</strong></td>
+        <td>1,360 (992 Stripe + 368 in-app)</td>
+        <td>1,831 (1,333 Stripe + 498 in-app)</td>
+        <td>&mdash; (App campaign)</td>
       </tr>
       <tr>
-        <td><strong>Total revenue (all sources)</strong></td>
-        <td><strong>$214,790</strong></td>
-        <td><strong>$299,816</strong></td>
-        <td><strong>$236,655</strong></td>
+        <td><strong>Pro payers (Stripe only)</strong></td>
+        <td>&mdash; (Pro campaign)</td>
+        <td>&mdash; (Pro campaign)</td>
+        <td>1,071</td>
+      </tr>
+      <tr>
+        <td><strong>Campaign revenue</strong></td>
+        <td><strong>$189,198</strong> (App)</td>
+        <td><strong>$250,067</strong> (App)</td>
+        <td><strong>$42,577</strong> (Pro)</td>
       </tr>
       <tr>
         <td>Stripe payers who received lifecycle email</td>
-        <td>268 (19.7% of Stripe payers)</td>
-        <td>433 (23.4% of Stripe payers)</td>
-        <td>170 (9.6% of Stripe payers)</td>
+        <td>268 of 992 App Stripe payers (27.0%)</td>
+        <td>433 of 1,333 App Stripe payers (32.5%)</td>
+        <td>170 of 1,071 Pro Stripe payers (15.9%)</td>
       </tr>
       <tr>
         <td>Payers who clicked a lifecycle email</td>
-        <td>68 (5.0%)</td>
-        <td>58 (3.1%)</td>
-        <td>31 (1.7%)</td>
+        <td>68 (6.9%)</td>
+        <td>58 (4.4%)</td>
+        <td>31 (2.9%)</td>
       </tr>
       <tr>
         <td>Payers with <em>no</em> lifecycle touchpoint</td>
-        <td>1,089 (80.3%)</td>
-        <td>1,414 (76.6%)</td>
-        <td>1,609 (90.4%)</td>
-      </tr>
-      <tr>
-        <td><strong>Total Stripe revenue in window</strong></td>
-        <td><strong>$160,824</strong></td>
-        <td><strong>$221,410</strong></td>
-        <td><strong>$156,092</strong></td>
+        <td>724 (73.0%)</td>
+        <td>900 (67.5%)</td>
+        <td>901 (84.1%)</td>
       </tr>
     </tbody>
   </table>
 
   <div class="insight">
-    <strong>Key insight:</strong> Lifecycle emails reached 20&ndash;23% of all payers in J4 and BFCM (App campaigns). NPTM's 9.6% is lower because the Pro non-member email list has less overlap with the Stripe payer population. The majority of conversions came from users who were <em>not</em> in lifecycle sequences &mdash; they found Prehab via social, organic, or paid channels. Lifecycle's value is as a conversion accelerator for warm audiences, not the primary acquisition channel.
+    <strong>Key insight:</strong> Lifecycle emails reached 27&ndash;33% of App Stripe payers during J4 and BFCM. NPTM reached 15.9% of Pro Stripe payers. The majority of conversions came from users who were <em>not</em> in lifecycle sequences &mdash; they found Prehab via social, organic, or paid channels. Lifecycle's value is as a conversion accelerator for warm audiences, not the primary acquisition channel.
   </div>
 
   <h3>Clicker-to-Payer by Journey</h3>
@@ -1681,7 +1687,7 @@
 <div class="section" style="background: linear-gradient(135deg, var(--teal-light), white);">
   <h2>Final Verdict</h2>
   <p style="font-size: 1.05rem; line-height: 1.7;">
-    <strong>Run all 15 journeys.</strong> Lifecycle emails reached 20&ndash;23% of all Stripe payers during J4 and BFCM, with email clickers generating $10K+ in tracked revenue per campaign. NPTM Pro clickers alone drove $72.8K in Stripe revenue with 97% still active today. The 10-Year plan builds on every proven journey type, adds Pro-side equivalents backed by comprehensive NPTM data, and introduces smarter segmentation via the enrichment email. The plan is tighter than both J4 and BFCM &mdash; fewer emails per journey, better channel mix, and the first dual-product campaign.
+    <strong>Run all 15 journeys.</strong> Lifecycle emails reached 27&ndash;33% of App Stripe payers during J4 and BFCM, and 16% of Pro Stripe payers during NPTM. Across $482K in campaign revenue, the data is clear: embedded and in-app channels drive the highest per-user conversion rates, email drives volume, and Pro lifecycle has strong long-tail value. The 10-Year plan builds on every proven journey type, adds Pro-side equivalents backed by comprehensive NPTM data, and introduces smarter segmentation via the enrichment email. The plan is tighter than both J4 and BFCM &mdash; fewer emails per journey, better channel mix, and the first dual-product campaign.
   </p>
   <p style="font-size: 1.05rem; line-height: 1.7; margin-top: 12px;">
     The three things that will determine whether this campaign outperforms J4 and BFCM:
