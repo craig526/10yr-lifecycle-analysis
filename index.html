@@ -890,37 +890,167 @@
 
 <!-- CHANNEL PERFORMANCE -->
 <div class="section">
-  <h2>Channel Performance Insights (J4 + BFCM)</h2>
+  <h2>Channel Performance Insights (J4 + BFCM) &mdash; ClickHouse Data</h2>
 
-  <h3>J4 2025 &mdash; Channel-Level Conversion Data</h3>
-  <p style="margin-bottom: 12px;">J4 is the only campaign with channel-to-IC conversion tracking. These patterns should guide the 10-Year channel strategy.</p>
+  <h3>Embedded Messaging: Impression &rarr; Click &rarr; Conversion</h3>
+  <p style="margin-bottom: 12px;">Embedded message events (<code>embeddedReceived</code>, <code>embeddedClick</code>) tracked in Mixpanel via Iterable, cross-referenced against ClickHouse user + Stripe data.</p>
   <table>
     <thead>
       <tr>
-        <th>Channel</th>
-        <th>Sent &rarr; IC Rate</th>
-        <th>Engaged &rarr; IC Rate</th>
-        <th>Best Use</th>
+        <th>Metric</th>
+        <th>J4 2025</th>
+        <th>BFCM 2025</th>
       </tr>
     </thead>
     <tbody>
       <tr>
-        <td><strong>Embedded (In-App)</strong></td>
-        <td>4.6&ndash;8.2%</td>
-        <td><strong>22&ndash;38% click CVR</strong></td>
-        <td>Highest CVR channel. Use for all segments with app access.</td>
+        <td><strong>Unique impressions (embeddedReceived)</strong></td>
+        <td>~1,437 per placement (Non-Members), 651 (Winback), 595 (SalesUp), 110 (Monthly)</td>
+        <td>~427 (Winback), 406 (SalesUp), 64 (Monthly)</td>
+      </tr>
+      <tr>
+        <td><strong>Unique clickers (embeddedClick)</strong></td>
+        <td>259</td>
+        <td>107</td>
+      </tr>
+      <tr>
+        <td>Click rate (Home Screen)</td>
+        <td>6.1%</td>
+        <td>7.7% (Winback), 4.9% (SalesUp)</td>
+      </tr>
+      <tr>
+        <td>Currently paid (ANNUAL+MONTHLY)</td>
+        <td>61 (23.6%)</td>
+        <td>41 (38.3%)</td>
+      </tr>
+      <tr>
+        <td><strong>Paid during campaign window</strong></td>
+        <td><strong>9 ($1,002)</strong></td>
+        <td><strong>13 ($1,712)</strong></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h4>J4 Embedded &mdash; By Placement</h4>
+  <table>
+    <thead>
+      <tr><th>Campaign / Placement</th><th>Impressions</th><th>Clicks</th><th>Click Rate</th></tr>
+    </thead>
+    <tbody>
+      <tr><td colspan="4" style="font-weight:600; background: var(--slate-light);">Non-Members (Free → Annual)</td></tr>
+      <tr><td>Home Screen</td><td>1,437</td><td>87</td><td>6.1%</td></tr>
+      <tr><td>Manage Membership</td><td>1,429</td><td>26</td><td>1.8%</td></tr>
+      <tr><td>Settings</td><td>1,437</td><td>24</td><td>1.7%</td></tr>
+      <tr><td colspan="4" style="font-weight:600; background: var(--slate-light);">Annual Winback</td></tr>
+      <tr><td>Home Screen</td><td>651</td><td>64</td><td>9.8%</td></tr>
+      <tr><td>Manage Membership</td><td>648</td><td>55</td><td>8.5%</td></tr>
+      <tr><td>Settings</td><td>651</td><td>28</td><td>4.3%</td></tr>
+      <tr><td colspan="4" style="font-weight:600; background: var(--slate-light);">Activation SalesUp</td></tr>
+      <tr><td>Home Screen</td><td>595</td><td>22</td><td>3.7%</td></tr>
+      <tr><td>Manage Membership</td><td>593</td><td>13</td><td>2.2%</td></tr>
+      <tr><td>Settings</td><td>594</td><td>7</td><td>1.2%</td></tr>
+      <tr><td colspan="4" style="font-weight:600; background: var(--slate-light);">Monthly → Annual</td></tr>
+      <tr><td>Home Screen</td><td>110</td><td>13</td><td>11.8%</td></tr>
+      <tr><td>Manage Membership</td><td>110</td><td>1</td><td>0.9%</td></tr>
+      <tr><td>Settings</td><td>110</td><td>1</td><td>0.9%</td></tr>
+    </tbody>
+  </table>
+
+  <h4>BFCM Embedded &mdash; By Placement</h4>
+  <table>
+    <thead>
+      <tr><th>Campaign / Placement</th><th>Impressions</th><th>Clicks</th><th>Click Rate</th></tr>
+    </thead>
+    <tbody>
+      <tr><td colspan="4" style="font-weight:600; background: var(--slate-light);">Winback</td></tr>
+      <tr><td>Membership</td><td>426</td><td>38</td><td>8.9%</td></tr>
+      <tr><td>Home Screen</td><td>427</td><td>33</td><td>7.7%</td></tr>
+      <tr><td>Settings</td><td>425</td><td>27</td><td>6.4%</td></tr>
+      <tr><td colspan="4" style="font-weight:600; background: var(--slate-light);">AppSalesUp</td></tr>
+      <tr><td>Home Screen</td><td>406</td><td>20</td><td>4.9%</td></tr>
+      <tr><td>Settings</td><td>405</td><td>11</td><td>2.7%</td></tr>
+      <tr><td>Membership</td><td>406</td><td>5</td><td>1.2%</td></tr>
+      <tr><td colspan="4" style="font-weight:600; background: var(--slate-light);">Monthly Expansion</td></tr>
+      <tr><td>Settings</td><td>64</td><td>5</td><td>7.8%</td></tr>
+      <tr><td>Membership</td><td>64</td><td>4</td><td>6.3%</td></tr>
+      <tr><td>Home Screen</td><td>64</td><td>3</td><td>4.7%</td></tr>
+    </tbody>
+  </table>
+
+  <div class="insight">
+    <strong>Home Screen is the highest-traffic embedded placement</strong> across all journeys, but <strong>Winback audiences click at 2&ndash;3x the rate</strong> of Non-Members (8&ndash;10% vs. 2&ndash;6%). Monthly → Annual Home Screen had the single highest click rate (11.8%) despite the smallest audience. For the 10-Year campaign, prioritize embedded creative for Winback and Monthly Expansion segments &mdash; these are the highest-converting placements.
+  </div>
+
+  <h3>In-App Messages: Open &rarr; Conversion</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>Campaign</th>
+        <th>Users Opened</th>
+        <th>Currently Paid</th>
+        <th>Paid in Window</th>
+        <th>Revenue</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td colspan="5" style="font-weight:600; background: var(--purple-light);">July 4th 2025 (901 total openers)</td></tr>
+      <tr><td>Annual Winback</td><td>596</td><td rowspan="3">198 ANNUAL + 8 MONTHLY (22.9%)</td><td rowspan="3">24</td><td rowspan="3">$1,779</td></tr>
+      <tr><td>All Purchasers</td><td>223</td></tr>
+      <tr><td>Monthly Expansion</td><td>102</td></tr>
+      <tr><td colspan="5" style="font-weight:600; background: var(--orange-light);">BFCM 2025 (385 total openers)</td></tr>
+      <tr><td>Winback</td><td>331</td><td rowspan="2">131 ANNUAL + 10 MONTHLY (36.6%)</td><td rowspan="2">23</td><td rowspan="2">$2,942</td></tr>
+      <tr><td>Monthly Expansion</td><td>54</td></tr>
+    </tbody>
+  </table>
+
+  <div class="insight">
+    <strong>BFCM in-app had better conversion efficiency than J4:</strong> 36.6% of in-app openers are currently paid vs. 22.9% for J4. In-app winback ($2,942 from 23 payers) outperformed embedded winback ($1,712 from 13 payers) during BFCM despite fewer users. For the 10-Year campaign, in-app messages should be included for all premium-audience journeys (Winback, Monthly Expansion, Pending Cancel).
+  </div>
+
+  <h3>Channel Summary: All Channels &times; Conversion</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>Channel</th>
+        <th>J4 Reach</th>
+        <th>J4 Paid in Window</th>
+        <th>BFCM Reach</th>
+        <th>BFCM Paid in Window</th>
+        <th>Best For</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Email</strong></td>
+        <td>78,084 recipients</td>
+        <td>68 clickers paid ($10,238)</td>
+        <td>113,821 recipients</td>
+        <td>58 clickers paid ($9,390)</td>
+        <td>Volume driver. Non-member acquisition.</td>
       </tr>
       <tr>
         <td><strong>Push</strong></td>
-        <td>0.93&ndash;2.88%</td>
-        <td>4.8&ndash;10.3% open CVR</td>
-        <td>Best for urgency moments (Day 1, last day). Premium audience responds best.</td>
+        <td>50,723 sent</td>
+        <td>153 opened (0.3% OR)</td>
+        <td>126,510 sent</td>
+        <td>271 opened (0.2% OR)</td>
+        <td>Urgency. Low open rate but additive reach.</td>
       </tr>
       <tr>
-        <td><strong>Email</strong></td>
-        <td>0.35&ndash;4.55%</td>
-        <td>4&ndash;16.4% click CVR</td>
-        <td>Volume driver. First emails perform best (front-load value). Premium > non-member.</td>
+        <td><strong>Embedded</strong></td>
+        <td>~1,437 per placement</td>
+        <td>9 paid ($1,002)</td>
+        <td>~427 per placement</td>
+        <td>13 paid ($1,712)</td>
+        <td><strong>Highest click rates (6&ndash;12%).</strong> Winback + Monthly.</td>
+      </tr>
+      <tr>
+        <td><strong>In-App</strong></td>
+        <td>901 openers</td>
+        <td>24 paid ($1,779)</td>
+        <td>385 openers</td>
+        <td>23 paid ($2,942)</td>
+        <td><strong>Highest paid %</strong> (37% BFCM). Premium audiences.</td>
       </tr>
     </tbody>
   </table>
