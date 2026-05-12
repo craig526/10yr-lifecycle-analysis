@@ -245,6 +245,125 @@
   </ol>
 </div>
 
+<!-- PROPOSED TOUCHPOINT UPDATES -->
+<div class="section">
+  <h2>Proposed Touchpoint Updates &mdash; Channels to Add</h2>
+  <p style="margin-bottom: 12px;">The Google Sheet currently defines email and push touchpoints. Based on J4 and BFCM channel performance data, the following <strong>embedded, in-app, and additional push</strong> touchpoints should be added to each App-facing journey. Pro journeys are email-only (web product, no app channels).</p>
+
+  <div class="warning">
+    <strong>Embedded messages are always-on placements</strong> &mdash; not individual scheduled sends. They go live at <strong>Tech Start (June 10)</strong> and come down at <strong>Tech End (June 29)</strong>. Any qualifying user who opens the app during that window sees them. In-app messages trigger once on app open.
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Journey</th>
+        <th>Current (Sheet)</th>
+        <th>Proposed Additions</th>
+        <th>Data Justification</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr style="background: var(--green-light);">
+        <td><strong>Non-Members App</strong></td>
+        <td>5 emails only</td>
+        <td>
+          <strong>+3 Embedded</strong> (Home Screen, Manage Membership, Settings)<br>
+          <strong>+2&ndash;3 Push</strong> (Day 1, Day 5, Day 9)
+        </td>
+        <td>J4 embedded: 1,437 impressions/placement, <strong>6.1% Home Screen click rate</strong> (87 clickers). BFCM push: 116 openers across 4 pushes. Non-members with the app installed get a persistent in-app reminder for the full tech window.</td>
+      </tr>
+      <tr style="background: var(--green-light);">
+        <td><strong>InApp SalesUp</strong></td>
+        <td>3 emails only</td>
+        <td>
+          <strong>+3 Embedded</strong> (Home Screen, Membership, Settings)<br>
+          <strong>+2&ndash;3 Push</strong> (after Email #1, before final day)
+        </td>
+        <td>These users <em>are in the app</em>. J4 embedded: 3.7% Home, 2.2% Membership. BFCM: <strong>4.9% Home</strong>, 2.7% Settings. Push: J4 42 openers (23.8% currently paid), BFCM 77 openers. Email CTR understated due to deep links &mdash; embedded + push are the measurable channels here.</td>
+      </tr>
+      <tr style="background: var(--green-light);">
+        <td><strong>Monthly Expansion App</strong></td>
+        <td>3 emails + 3 pushes</td>
+        <td>
+          <strong>+3 Embedded</strong> (Home Screen, Membership, Settings)<br>
+          <strong>+1 In-App</strong> (trigger on app open)
+        </td>
+        <td><strong>Highest embedded click rate of any journey:</strong> J4 Home Screen 11.8%. BFCM Settings 7.8%. <strong>Highest in-app open rate:</strong> BFCM 47.4%. These two channels do the heavy lifting &mdash; email is the reminder, conversion happens in-app. Non-negotiable additions.</td>
+      </tr>
+      <tr style="background: var(--green-light);">
+        <td><strong>App Reactivation</strong></td>
+        <td>4 emails + 3 pushes</td>
+        <td>
+          <strong>+3 Embedded</strong> (Home Screen, Membership, Settings)<br>
+          <strong>+1 In-App</strong> (trigger on app open)
+        </td>
+        <td><strong>Highest embedded click rates of any journey:</strong> J4 Home 9.8%, Membership 8.5%. BFCM Membership 8.9%, Home 7.7%. In-app: BFCM drove <strong>$2,942 from 23 payers</strong>, 36.6% of openers currently paid. Lapsed users who return to the app respond to in-context prompts far better than email.</td>
+      </tr>
+      <tr>
+        <td><strong>LIC App</strong></td>
+        <td>3 emails only</td>
+        <td>
+          <strong>+1 Embedded</strong> (Home Screen)<br>
+          <strong>+1 Push</strong> (4hr after abandon)
+        </td>
+        <td>Highest-CVR journey (12.7% BFCM). Users were in the app at checkout &mdash; a Home Screen embedded catches them if they return. One push creates urgency without email fatigue. Keep it lean.</td>
+      </tr>
+      <tr>
+        <td><strong>Pending Cancel App</strong></td>
+        <td>2 emails only</td>
+        <td>
+          <strong>+1 Push</strong> (30 min after cancel, before Email #1)
+        </td>
+        <td>Time-sensitive trigger. User just initiated cancellation and likely still has the app. One push is a low-friction first touch before the email follow-up. No embedded needed &mdash; window is too short.</td>
+      </tr>
+      <tr style="background: var(--slate-light);">
+        <td><strong>App Quiz SalesUp</strong></td>
+        <td>2 emails only</td>
+        <td>
+          <strong>+1 Push</strong> (if app installed, 24hr after quiz)
+        </td>
+        <td>Quiz completers may or may not have the app (could be web). If app is installed, one push is additive. No embedded since we can't guarantee app access. Low effort.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3 style="margin-top: 20px;">Pro Journeys &mdash; No Changes</h3>
+  <p style="margin-bottom: 12px;">All Pro journeys (Non-Members Pro, Pro Quiz SalesUp, LIC Pro, Pro Reactivation, Pending Cancel Pro, Team Expansion Pro) are <strong>email-only</strong>. Prehab Professional is a web product with no native app, so embedded, in-app, and push channels do not apply. Current sheet touchpoints are correct.</p>
+
+  <h3>Embedded Placement Reference (for Iterable build)</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>Placement</th>
+        <th>Best Historical Click Rate</th>
+        <th>Which Journeys</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Home Screen</strong></td>
+        <td>11.8% (Monthly, J4), 9.8% (Winback, J4), 6.1% (Non-Member, J4)</td>
+        <td>All App journeys with embedded</td>
+      </tr>
+      <tr>
+        <td><strong>Manage Membership</strong></td>
+        <td>8.9% (Winback, BFCM), 8.5% (Winback, J4)</td>
+        <td>Reactivation, Monthly Expansion, Non-Members</td>
+      </tr>
+      <tr>
+        <td><strong>Settings</strong></td>
+        <td>7.8% (Monthly, BFCM), 6.4% (Winback, BFCM)</td>
+        <td>All App journeys with embedded (lower priority)</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="insight">
+    <strong>Total proposed additions across all App journeys:</strong> 14 embedded placements (across 5 journeys &times; 2&ndash;3 placements), 4 in-app messages (Monthly Expansion + Reactivation + optionally LIC + Pending Cancel), and 7&ndash;10 push notifications. Embedded creative is the same across placements per journey &mdash; just resized. In-app creative is one per journey. Net new design effort is manageable: ~5 embedded creatives + 2 in-app creatives + push copy.
+  </div>
+</div>
+
 <!-- JOURNEY-BY-JOURNEY RECOMMENDATIONS -->
 <div class="section">
   <h2>Journey-by-Journey Recommendations</h2>
