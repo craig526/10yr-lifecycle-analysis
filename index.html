@@ -294,10 +294,28 @@
         <td>668,208 (Pro individual)</td>
       </tr>
       <tr>
-        <td><strong>Total Stripe Revenue in Window</strong></td>
-        <td>$160,824</td>
-        <td>$221,410</td>
-        <td>$156,092</td>
+        <td><strong>Stripe Revenue</strong></td>
+        <td>$165,696 net (1,542 txns)</td>
+        <td>$231,045 net (2,175 txns)</td>
+        <td>$159,334 net (2,093 txns)</td>
+      </tr>
+      <tr>
+        <td><strong>App Store (RevenueCat)</strong></td>
+        <td>$39,460 (297 txns)</td>
+        <td>$55,494 (412 txns)</td>
+        <td>$67,580 (540 txns)</td>
+      </tr>
+      <tr>
+        <td><strong>Play Store (RevenueCat)</strong></td>
+        <td>$9,634 (71 txns)</td>
+        <td>$13,277 (86 txns)</td>
+        <td>$9,741 (69 txns)</td>
+      </tr>
+      <tr style="font-weight:600; background: var(--teal-light);">
+        <td><strong>Total Revenue (All Sources)</strong></td>
+        <td><strong>$214,790</strong></td>
+        <td><strong>$299,816</strong></td>
+        <td><strong>$236,655</strong></td>
       </tr>
       <tr>
         <td><strong>Products Covered</strong></td>
@@ -491,16 +509,22 @@
     </thead>
     <tbody>
       <tr>
-        <td><strong>Total Stripe payers in window</strong></td>
-        <td>1,357</td>
-        <td>1,847</td>
-        <td>1,779</td>
+        <td><strong>Total payers (all sources)</strong></td>
+        <td>1,910 (1,542 Stripe + 368 in-app)</td>
+        <td>2,673 (2,175 Stripe + 498 in-app)</td>
+        <td>2,702 (2,093 Stripe + 609 in-app)</td>
       </tr>
       <tr>
-        <td>Payers who received a lifecycle email</td>
-        <td>268 (19.7%)</td>
-        <td>433 (23.4%)</td>
-        <td>170 (9.6%)</td>
+        <td><strong>Total revenue (all sources)</strong></td>
+        <td><strong>$214,790</strong></td>
+        <td><strong>$299,816</strong></td>
+        <td><strong>$236,655</strong></td>
+      </tr>
+      <tr>
+        <td>Stripe payers who received lifecycle email</td>
+        <td>268 (19.7% of Stripe payers)</td>
+        <td>433 (23.4% of Stripe payers)</td>
+        <td>170 (9.6% of Stripe payers)</td>
       </tr>
       <tr>
         <td>Payers who clicked a lifecycle email</td>
@@ -1218,25 +1242,41 @@
     <!-- NON-MEMBERS APP -->
     <div class="rec-card must-run">
       <div class="rec-header">
-        <div class="rec-title">Non-Members App (5 emails)</div>
+        <div class="rec-title">Non-Members App (5 emails + embedded + push)</div>
         <span class="tag tag-green">MUST RUN</span>
       </div>
       <div class="rec-body">
         Largest audience, largest absolute conversion count in both J4 (214 IC, 18% of total) and BFCM (217 IC). The backbone of every campaign. 50.5% account-to-IC CVR when in workflow vs. 26.7% outside &mdash; the workflow demonstrably works.
       </div>
-      <div class="rec-data">Recommendation: Run as planned. Front-load best content (first emails had highest OR/CTR in J4). Consider adding push notifications for deal launch (Day 1) and last day &mdash; J4 push outperformed email for this audience.</div>
+      <div class="rec-data">
+        <strong>Channel performance from ClickHouse:</strong>
+        <ul style="margin-top:6px;">
+          <li><strong>Email:</strong> J4: 7 emails, 525K sends, 8.6% OR, 0.2% CTR. BFCM: 5 emails, 542K sends, 8.5% OR, 0.3% CTR. Volume driver but low per-email click rate.</li>
+          <li><strong>Embedded:</strong> J4 had 1,437 impressions per placement (Home, Settings, Membership). Home Screen had highest click rate at 6.1% (87 clickers). Settings and Membership ~1.7&ndash;1.8%.</li>
+          <li><strong>Push:</strong> J4 had 4 push campaigns with 80 total unique openers (23, 22, 19, 16 each). BFCM had 4 push campaigns with 116 total unique openers (41, 29, 26, 20 each). Low rates (0.1&ndash;0.2%) but non-zero reach.</li>
+        </ul>
+        <strong style="color: var(--teal);">Strategy implication:</strong> Non-member email is the volume driver (highest absolute reach). But for users with the app installed, <strong>embedded messaging (6.1% Home Screen click rate) significantly outperforms email (0.2% CTR)</strong>. Add embedded creative on Home Screen + Manage Membership. Push adds marginal reach. Front-load best email content &mdash; first sends have highest OR/CTR.
+      </div>
     </div>
 
     <!-- IN-APP SALESUP -->
     <div class="rec-card must-run">
       <div class="rec-header">
-        <div class="rec-title">InApp SalesUp (3 emails)</div>
+        <div class="rec-title">InApp SalesUp (3 emails + embedded + push)</div>
         <span class="tag tag-green">MUST RUN</span>
       </div>
       <div class="rec-body">
-        Second biggest contributor in J4 (143 IC, 12% of total). BFCM A/B test proved lifecycle lift: 42 conversions in test group (80%) vs. 15 in control (20%). Higher email CTR and click-to-IC than non-members. These are high-intent users who just created an account.
+        Second biggest contributor in J4 (143 IC, 12% of total). BFCM A/B test proved lifecycle lift: 42 conversions in test group (80%) vs. 15 in control (20%). These are high-intent users who just created an account.
       </div>
-      <div class="rec-data">Recommendation: Run as planned. The 3-email sequence is tighter than J4's 18-campaign journey &mdash; good simplification. Add embedded messaging (30% click CVR in J4). Consider push for the welcome message.</div>
+      <div class="rec-data">
+        <strong>Channel performance from ClickHouse (Activation SalesUp / AppSalesUp):</strong>
+        <ul style="margin-top:6px;">
+          <li><strong>Embedded:</strong> J4 had 595 impressions per placement, 33 unique clickers (3.7% Home, 2.2% Membership, 1.2% Settings). 6 of 33 clickers currently paid (18.2%). BFCM: 406 impressions, 29 clickers (4.9% Home, 2.7% Settings). 7 of 29 currently paid (24.1%).</li>
+          <li><strong>Push:</strong> J4 had 42 unique push openers across 7 campaigns &mdash; 10 currently paid (23.8%). Best: BodyScan_1 and AtRisk_9 each drove 12 openers. BFCM had 77 push openers &mdash; 8 currently paid (10.4%). First two pushes drove most opens (29 and 25).</li>
+          <li><strong>Email:</strong> J4 had 13.7% OR, 0.6% CTR. BFCM had 6.7% OR, <strong>0.0% CTR</strong> &mdash; zero email clicks across all 4 BFCM AppSalesUp emails.</li>
+        </ul>
+        <strong style="color: var(--teal);">Strategy implication:</strong> BFCM proved that email alone doesn't convert SalesUp users &mdash; they convert in-app via embedded and push. The 10-Year plan's 3 emails should be supplemented with <strong>embedded messaging on Home Screen + Membership</strong> (4&ndash;5% click rate) and <strong>2&ndash;3 push notifications</strong> (early pushes drive 2x the opens of later ones). These users are already in the app; meet them there.
+      </div>
     </div>
 
     <!-- LEFT IN CART APP -->
@@ -1254,25 +1294,42 @@
     <!-- APP REACTIVATION -->
     <div class="rec-card must-run">
       <div class="rec-header">
-        <div class="rec-title">App Reactivation (4 emails + 3 pushes)</div>
+        <div class="rec-title">App Reactivation (4 emails + 3 pushes + embedded + in-app)</div>
         <span class="tag tag-green">MUST RUN</span>
       </div>
       <div class="rec-body">
-        J4: 68 winbacks (6% of IC). Highest email click-to-IC of any journey at 16.36%. Push sent-to-IC also strongest at 1.44%. Premium/lapsed audience responds better to lifecycle messaging than any other segment. BFCM: 34 conversions from 2,779 audience.
+        J4: 68 winbacks (6% of IC). Highest email click-to-IC of any journey at 16.36%. Premium/lapsed audience responds better to lifecycle messaging than any other segment. BFCM: 34 conversions from 2,779 audience.
       </div>
-      <div class="rec-data">Recommendation: Run as planned. The email+push combo is correct. Add embedded messaging for users who still have the app installed &mdash; 22.3% click CVR in J4 winback.</div>
+      <div class="rec-data">
+        <strong>Channel performance from ClickHouse (Winback):</strong>
+        <ul style="margin-top:6px;">
+          <li><strong>Embedded:</strong> J4: 651 impressions per placement. Home Screen 9.8% click rate, Membership 8.5%, Settings 4.3% &mdash; <strong>highest embedded click rates of any journey</strong>. BFCM: 427 impressions. Membership 8.9%, Home 7.7%, Settings 6.4%.</li>
+          <li><strong>In-App:</strong> J4: 596 users opened winback in-app. BFCM: 331 users opened. <strong>BFCM in-app winback drove $2,942 from 23 payers</strong> &mdash; highest per-user revenue of any channel/journey combo. 36.6% of all BFCM in-app openers are currently paid.</li>
+          <li><strong>Email:</strong> J4: 12.6% OR, 1.3% CTR. BFCM: 10.4% OR, 0.0% CTR (clicks tracked via embedded/in-app instead).</li>
+        </ul>
+        <strong style="color: var(--teal);">Strategy implication:</strong> Winback is where embedded and in-app shine brightest. Embedded Membership placement (8.5&ndash;8.9% click rate) and in-app messages ($2,942 BFCM revenue) are critical channels. <strong>Must include embedded + in-app for the 10-Year Reactivation journey</strong> &mdash; these lapsed users still have the app and respond to in-context prompts far better than email.
+      </div>
     </div>
 
     <!-- MONTHLY EXPANSION APP -->
     <div class="rec-card must-run">
       <div class="rec-header">
-        <div class="rec-title">Monthly Member Expansion &mdash; App (3 emails + 3 pushes)</div>
+        <div class="rec-title">Monthly Member Expansion &mdash; App (3 emails + 3 pushes + embedded + in-app)</div>
         <span class="tag tag-green">MUST RUN</span>
       </div>
       <div class="rec-body">
-        Small in absolute terms (14 upgrades in J4, 4 in BFCM) but the workflow drove 71% of all upgrades in J4. Embedded messaging was the star: 38.5% click CVR. These are paying users &mdash; every upgrade is pure retention value with zero acquisition cost.
+        Small in absolute terms (14 upgrades in J4, 4 in BFCM) but the workflow drove 71% of all upgrades in J4. These are paying users &mdash; every upgrade is pure retention value with zero acquisition cost.
       </div>
-      <div class="rec-data">Recommendation: Run as planned. Embedded messaging is critical here &mdash; make sure campaign-specific banners are in the app. The savings math email (#3 in the plan) mirrors what worked in J4.</div>
+      <div class="rec-data">
+        <strong>Channel performance from ClickHouse (Monthly Expansion):</strong>
+        <ul style="margin-top:6px;">
+          <li><strong>Embedded:</strong> J4: 110 impressions per placement. Home Screen had <strong>11.8% click rate</strong> (13 clickers) &mdash; highest of any embedded placement across all journeys. BFCM: 64 impressions. Settings 7.8%, Membership 6.3%, Home 4.7%.</li>
+          <li><strong>In-App:</strong> J4: 102 users opened Monthly in-app message. BFCM: 54 openers. <strong>BFCM in-app Monthly had 47.4% open rate</strong> (from Iterable metrics) &mdash; highest of any in-app message.</li>
+          <li><strong>Email:</strong> J4: 9.9% OR, 0.5% CTR. BFCM: 11.0% OR, 0.0% CTR (zero email clicks).</li>
+          <li><strong>Push:</strong> BFCM Monthly push had 3.4% OR (11 opens from 323 sent) &mdash; 2nd highest push open rate after AppSalesUp test.</li>
+        </ul>
+        <strong style="color: var(--teal);">Strategy implication:</strong> Embedded Home Screen (11.8% click rate) and in-app (47.4% open rate) do the heavy lifting here, not email. <strong>Embedded and in-app are non-negotiable for Monthly Expansion.</strong> Email serves as a reminder; the conversion happens in-app.
+      </div>
     </div>
 
     <!-- NON-MEMBERS PRO -->
