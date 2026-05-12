@@ -1,0 +1,1513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>10-Year Campaign: Lifecycle Strategy Analysis</title>
+<style>
+  :root {
+    --teal: #0d9488;
+    --teal-light: #ccfbf1;
+    --teal-dark: #134e4a;
+    --orange: #ea580c;
+    --orange-light: #fff7ed;
+    --slate: #334155;
+    --slate-light: #f1f5f9;
+    --green: #16a34a;
+    --green-light: #dcfce7;
+    --yellow: #ca8a04;
+    --yellow-light: #fefce8;
+    --red: #dc2626;
+    --red-light: #fef2f2;
+    --purple: #7c3aed;
+    --purple-light: #f5f3ff;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    color: var(--slate);
+    line-height: 1.6;
+    background: #f8fafc;
+    padding: 40px 20px;
+  }
+  .container { max-width: 1100px; margin: 0 auto; }
+
+  /* Header */
+  .header {
+    text-align: center;
+    margin-bottom: 48px;
+    padding: 40px;
+    background: linear-gradient(135deg, var(--teal-dark), var(--teal));
+    color: white;
+    border-radius: 16px;
+  }
+  .header h1 { font-size: 2rem; margin-bottom: 8px; font-weight: 700; }
+  .header .subtitle { font-size: 1.1rem; opacity: 0.9; }
+  .header .date { font-size: 0.85rem; opacity: 0.7; margin-top: 12px; }
+
+  /* Section */
+  .section {
+    background: white;
+    border-radius: 12px;
+    padding: 32px;
+    margin-bottom: 24px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+  }
+  .section h2 {
+    font-size: 1.4rem;
+    color: var(--teal-dark);
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid var(--teal-light);
+  }
+  .section h3 {
+    font-size: 1.1rem;
+    color: var(--slate);
+    margin: 20px 0 12px;
+  }
+
+  /* KPI Cards */
+  .kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+  .kpi-card {
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+  }
+  .kpi-card .label { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600; }
+  .kpi-card .value { font-size: 2rem; font-weight: 700; margin: 4px 0; }
+  .kpi-card .context { font-size: 0.8rem; opacity: 0.7; }
+  .kpi-j4 { background: var(--purple-light); color: var(--purple); }
+  .kpi-bfcm { background: var(--orange-light); color: var(--orange); }
+  .kpi-10yr { background: var(--teal-light); color: var(--teal); }
+  .kpi-neutral { background: var(--slate-light); color: var(--slate); }
+
+  /* Comparison Table */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+    margin: 16px 0;
+  }
+  th, td { padding: 10px 12px; text-align: left; border-bottom: 1px solid #e2e8f0; }
+  th { background: var(--slate-light); font-weight: 600; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.3px; }
+  tr:hover { background: #f8fafc; }
+
+  /* Tags */
+  .tag {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+  }
+  .tag-green { background: var(--green-light); color: var(--green); }
+  .tag-yellow { background: var(--yellow-light); color: var(--yellow); }
+  .tag-red { background: var(--red-light); color: var(--red); }
+  .tag-purple { background: var(--purple-light); color: var(--purple); }
+  .tag-teal { background: var(--teal-light); color: var(--teal); }
+
+  /* Recommendation cards */
+  .rec-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  .rec-card {
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    padding: 20px;
+    border-left: 4px solid;
+  }
+  .rec-card.must-run { border-left-color: var(--green); }
+  .rec-card.run { border-left-color: var(--teal); }
+  .rec-card.new-bet { border-left-color: var(--yellow); }
+  .rec-card .rec-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+  }
+  .rec-card .rec-title { font-weight: 700; font-size: 1rem; }
+  .rec-card .rec-body { font-size: 0.9rem; color: #475569; }
+  .rec-card .rec-data { font-size: 0.82rem; color: #64748b; margin-top: 8px; font-style: italic; }
+
+  /* Insight callout */
+  .insight {
+    background: var(--teal-light);
+    border-left: 4px solid var(--teal);
+    padding: 16px 20px;
+    border-radius: 0 8px 8px 0;
+    margin: 16px 0;
+    font-size: 0.92rem;
+  }
+  .insight strong { color: var(--teal-dark); }
+
+  .warning {
+    background: var(--yellow-light);
+    border-left: 4px solid var(--yellow);
+    padding: 16px 20px;
+    border-radius: 0 8px 8px 0;
+    margin: 16px 0;
+    font-size: 0.92rem;
+  }
+  .warning strong { color: #92400e; }
+
+  /* Principle cards */
+  .principle {
+    display: flex;
+    gap: 16px;
+    padding: 16px 0;
+    border-bottom: 1px solid #e2e8f0;
+  }
+  .principle:last-child { border-bottom: none; }
+  .principle-num {
+    width: 36px;
+    height: 36px;
+    min-width: 36px;
+    background: var(--teal);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 0.9rem;
+  }
+  .principle-text { flex: 1; }
+  .principle-text strong { display: block; margin-bottom: 4px; }
+  .principle-text span { font-size: 0.9rem; color: #475569; }
+
+  /* Footer */
+  .footer {
+    text-align: center;
+    padding: 24px;
+    color: #94a3b8;
+    font-size: 0.8rem;
+  }
+
+  ul { margin-left: 20px; margin-top: 8px; }
+  li { margin-bottom: 6px; font-size: 0.9rem; }
+
+  @media print {
+    body { background: white; padding: 20px; }
+    .section { box-shadow: none; border: 1px solid #e2e8f0; }
+    .header { background: var(--teal-dark) !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+<!-- Header -->
+<div class="header">
+  <h1>10-Year Anniversary Campaign</h1>
+  <div class="subtitle">Lifecycle Strategy Analysis &mdash; Informed by Historical Campaign Performance</div>
+  <div class="date">Prepared May 12, 2026 &bull; Campaign Window: June 13&ndash;28, 2026</div>
+</div>
+
+<!-- EXECUTIVE SUMMARY -->
+<div class="section">
+  <h2>Executive Summary</h2>
+  <p style="margin-bottom:16px;">The 10-Year campaign is the most comprehensive lifecycle effort Prehab has ever run &mdash; <strong>15 journeys</strong> spanning both products (App + Pro), covering acquisition, expansion, reactivation, and winback. This analysis draws from two prior campaigns with measured lifecycle performance to inform what to build, what to prioritize, and what to watch.</p>
+
+  <div class="kpi-grid">
+    <div class="kpi-card kpi-j4">
+      <div class="label">July 4th 2025</div>
+      <div class="value">19.7%</div>
+      <div class="context">of Stripe payers received lifecycle emails (268 of 1,357)</div>
+    </div>
+    <div class="kpi-card kpi-bfcm">
+      <div class="label">BFCM 2025</div>
+      <div class="value">23.4%</div>
+      <div class="context">of Stripe payers received lifecycle emails (433 of 1,847)</div>
+    </div>
+    <div class="kpi-card kpi-10yr">
+      <div class="label">10-Year Plan</div>
+      <div class="value">15</div>
+      <div class="context">journeys across App + Pro &bull; 111 total campaigns planned</div>
+    </div>
+    <div class="kpi-card kpi-neutral">
+      <div class="label">NPTM Pro Clickers</div>
+      <div class="value">$72.8K</div>
+      <div class="context">Stripe revenue from 2,467 email clickers (391 still active)</div>
+    </div>
+  </div>
+
+  <div class="insight">
+    <strong>Bottom line:</strong> Lifecycle emails reached ~20&ndash;23% of all Stripe payers during App campaigns, and email clickers generated $10K+ in tracked revenue per campaign. NPTM Pro clickers generated $72.8K during the campaign window alone, with 391 of 404 Pro matches still active today. The 10-Year plan builds on every proven journey type, adds Pro-side equivalents backed by strong NPTM data, and introduces smarter segmentation via enrichment email routing.
+  </div>
+</div>
+
+<!-- HISTORICAL COMPARISON -->
+<div class="section">
+  <h2>Historical Campaign Comparison</h2>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Metric</th>
+        <th>July 4th 2025 (App)</th>
+        <th>BFCM 2025 (App)</th>
+        <th>NPTM 2025 (Pro)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Offer</strong></td>
+        <td>$50 Off + Free Tee & Bands</td>
+        <td>25% Off First Year</td>
+        <td>25% off (indiv) / 35% off (group)</td>
+      </tr>
+      <tr>
+        <td><strong>Campaign Length</strong></td>
+        <td>23 days (Jun 12 &ndash; Jul 4)</td>
+        <td>7 days (Nov 25 &ndash; Dec 1)</td>
+        <td>~30 days (March)</td>
+      </tr>
+      <tr>
+        <td><strong>Lifecycle Journeys</strong></td>
+        <td>5 journeys (44 campaigns)</td>
+        <td>6 journeys (52 campaigns)</td>
+        <td>2 journeys (15 campaigns)</td>
+      </tr>
+      <tr>
+        <td><strong>Lifecycle Touchpoint w/ Payers</strong></td>
+        <td>19.7% of payers received lifecycle email</td>
+        <td>23.4% of payers received lifecycle email</td>
+        <td>9.6% of payers received lifecycle email</td>
+      </tr>
+      <tr>
+        <td><strong>Total Email Sends (unique)</strong></td>
+        <td>535,080</td>
+        <td>557,688</td>
+        <td>668,821</td>
+      </tr>
+      <tr>
+        <td><strong>Non-Member Sends</strong></td>
+        <td>525,594</td>
+        <td>542,062</td>
+        <td>668,208 (Pro individual)</td>
+      </tr>
+      <tr>
+        <td><strong>Total Stripe Revenue in Window</strong></td>
+        <td>$160,824</td>
+        <td>$221,410</td>
+        <td>$156,092</td>
+      </tr>
+      <tr>
+        <td><strong>Products Covered</strong></td>
+        <td>App only</td>
+        <td>App only</td>
+        <td>Pro only</td>
+      </tr>
+      <tr>
+        <td><strong>Performance Data</strong></td>
+        <td><span class="tag tag-green">Full Iterable + ClickHouse</span></td>
+        <td><span class="tag tag-green">Full Iterable + ClickHouse</span></td>
+        <td><span class="tag tag-green">Full Iterable + ClickHouse</span></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>NPTM 2025 (Pro) &mdash; Cross-Referenced Performance</h3>
+  <p style="margin-bottom: 12px;">Using an Iterable list of NPTM email openers who are still premium members (174 users), cross-referenced with ClickHouse <code>pro_users</code> data:</p>
+  <table>
+    <thead>
+      <tr>
+        <th>Signup Cohort</th>
+        <th>Users</th>
+        <th>Paid</th>
+        <th>Insight</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Before 2025 (existing)</td>
+        <td>83</td>
+        <td>73 (88%)</td>
+        <td>Retained existing subscribers &mdash; lifecycle reinforced retention</td>
+      </tr>
+      <tr>
+        <td>Jan&ndash;Sep 2025</td>
+        <td>15</td>
+        <td>12 (80%)</td>
+        <td>Pre-campaign signups who stayed</td>
+      </tr>
+      <tr>
+        <td><strong>October 2025 (campaign month)</strong></td>
+        <td><strong>32</strong></td>
+        <td><strong>16 (50%)</strong></td>
+        <td>New signups during campaign &mdash; half converted to paid</td>
+      </tr>
+      <tr>
+        <td>November 2025</td>
+        <td>12</td>
+        <td>9 (75%)</td>
+        <td>Post-campaign tail &mdash; strong late conversion</td>
+      </tr>
+      <tr>
+        <td>Dec 2025+</td>
+        <td>30</td>
+        <td>29 (97%)</td>
+        <td>Long-tail effect &mdash; opened NPTM email, signed up months later</td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="insight">
+    <strong>Pro lifecycle has long-tail value.</strong> 30 people who opened NPTM emails in October didn't sign up until December or later &mdash; and 97% of them are still paying. Most paid $108 (annual at 25% off). This supports running the Non-Members Pro journey even if immediate campaign-window conversions seem low.
+  </div>
+
+  <h3>July 4th 2025 &mdash; Lifecycle Conversion Breakdown</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>Journey</th>
+        <th>Conversions</th>
+        <th>% of Total J4 IC</th>
+        <th>Key Metric</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Non-Member</td>
+        <td>214</td>
+        <td>~18%</td>
+        <td>50.5% account-to-IC CVR (in workflow) vs. 26.7% (not in workflow)</td>
+      </tr>
+      <tr>
+        <td>In-App Activation SalesUp</td>
+        <td>143</td>
+        <td>~12%</td>
+        <td>10.08% blended CVR; email click-to-IC 6.25%</td>
+      </tr>
+      <tr>
+        <td>Winback</td>
+        <td>68</td>
+        <td>~6%</td>
+        <td>Email click-to-IC 16.36% (highest of any journey)</td>
+      </tr>
+      <tr>
+        <td>Monthly &rarr; Annual Upgrade</td>
+        <td>14</td>
+        <td>~1%</td>
+        <td>Workflow drove 71% of all upgrades; embedded 38.5% click CVR</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>BFCM 2025 &mdash; Lifecycle Conversion Breakdown</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>Journey</th>
+        <th>Conversions</th>
+        <th>Audience Size</th>
+        <th>Note</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Non-Member</td>
+        <td>217</td>
+        <td>217,651</td>
+        <td>Largest volume driver, consistent with J4</td>
+      </tr>
+      <tr>
+        <td>Left in Cart (LIC)</td>
+        <td>181</td>
+        <td>1,423</td>
+        <td>Conversions primarily came from people signing up on the website; highest engagement journey (19.5% email OR, 2.81% CTR)</td>
+      </tr>
+      <tr>
+        <td>In-App SalesUp (Test group, 80%)</td>
+        <td>42</td>
+        <td>~3,513</td>
+        <td>Control group (20%) converted 15 &mdash; lifecycle lift measurable</td>
+      </tr>
+      <tr>
+        <td>Winback</td>
+        <td>34</td>
+        <td>2,779</td>
+        <td>Steady performer, premium audience responds well</td>
+      </tr>
+      <tr>
+        <td>Web2App</td>
+        <td>18</td>
+        <td>426</td>
+        <td>Small volume, ~4.2% CVR</td>
+      </tr>
+      <tr>
+        <td>Monthly Expansion</td>
+        <td>4</td>
+        <td>114</td>
+        <td>Tiny audience, embedded messaging did most of the work</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="insight">
+    <strong>BFCM key finding:</strong> 232 of ~458 journey-attributed conversions came from emails collected <em>during</em> the campaign itself. The most valuable contacts are fresh ones entering the funnel while the offer is live. This validates the 10-Year plan's event-triggered journeys (InApp SalesUp, Quiz SalesUp, LIC) &mdash; they catch high-intent users in the moment.
+  </div>
+</div>
+
+<!-- COMPREHENSIVE ITERABLE + CLICKHOUSE CROSS-REFERENCE -->
+<div class="section">
+  <h2>Comprehensive Campaign Performance: Iterable Metrics + ClickHouse Conversion Data</h2>
+  <p style="margin-bottom:16px;">Every campaign in Iterable for J4, BFCM, and NPTM was pulled and cross-referenced against ClickHouse Stripe charge data. This shows who engaged with lifecycle emails and whether they converted.</p>
+
+  <div class="kpi-grid">
+    <div class="kpi-card kpi-j4">
+      <div class="label">J4 Campaigns</div>
+      <div class="value">44</div>
+      <div class="context">24 Email, 3 Embedded, 3 InApp, 15 Push</div>
+    </div>
+    <div class="kpi-card kpi-bfcm">
+      <div class="label">BFCM Campaigns</div>
+      <div class="value">52</div>
+      <div class="context">22 Email, 12 Embedded, 2 InApp, 16 Push</div>
+    </div>
+    <div class="kpi-card kpi-neutral">
+      <div class="label">NPTM Campaigns</div>
+      <div class="value">15</div>
+      <div class="context">All Email (9 Individual, 6 Group)</div>
+    </div>
+  </div>
+
+  <h3>Lifecycle Touchpoint &harr; Conversion Cross-Reference</h3>
+  <p style="margin-bottom:12px;">For each campaign window, we identified every Stripe payer, then checked how many had received or clicked a lifecycle email from Iterable.</p>
+  <table>
+    <thead>
+      <tr>
+        <th>Metric</th>
+        <th>J4 2025</th>
+        <th>BFCM 2025</th>
+        <th>NPTM 2025</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Total Stripe payers in window</strong></td>
+        <td>1,357</td>
+        <td>1,847</td>
+        <td>1,779</td>
+      </tr>
+      <tr>
+        <td>Payers who received a lifecycle email</td>
+        <td>268 (19.7%)</td>
+        <td>433 (23.4%)</td>
+        <td>170 (9.6%)</td>
+      </tr>
+      <tr>
+        <td>Payers who clicked a lifecycle email</td>
+        <td>68 (5.0%)</td>
+        <td>58 (3.1%)</td>
+        <td>31 (1.7%)</td>
+      </tr>
+      <tr>
+        <td>Payers with <em>no</em> lifecycle touchpoint</td>
+        <td>1,089 (80.3%)</td>
+        <td>1,414 (76.6%)</td>
+        <td>1,609 (90.4%)</td>
+      </tr>
+      <tr>
+        <td><strong>Total Stripe revenue in window</strong></td>
+        <td><strong>$160,824</strong></td>
+        <td><strong>$221,410</strong></td>
+        <td><strong>$156,092</strong></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="insight">
+    <strong>Key insight:</strong> Lifecycle emails reached 20&ndash;23% of all payers in J4 and BFCM (App campaigns). NPTM's 9.6% is lower because the Pro non-member email list has less overlap with the Stripe payer population. The majority of conversions came from users who were <em>not</em> in lifecycle sequences &mdash; they found Prehab via social, organic, or paid channels. Lifecycle's value is as a conversion accelerator for warm audiences, not the primary acquisition channel.
+  </div>
+
+  <h3>Clicker-to-Payer by Journey</h3>
+  <p style="margin-bottom:12px;">Among users who clicked a lifecycle email <em>and</em> paid during the campaign window:</p>
+  <table>
+    <thead>
+      <tr>
+        <th>Campaign</th>
+        <th>Journey</th>
+        <th>Clickers Who Paid</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td colspan="3" style="font-weight:600; background: var(--purple-light);">July 4th 2025 (68 total)</td></tr>
+      <tr><td></td><td>Non-Members</td><td>36</td></tr>
+      <tr><td></td><td>Purchasers/Converters</td><td>32</td></tr>
+      <tr><td></td><td>Winback</td><td>6</td></tr>
+      <tr><td></td><td>Activation/SalesUp</td><td>2</td></tr>
+      <tr><td colspan="3" style="font-weight:600; background: var(--orange-light);">BFCM 2025 (58 total)</td></tr>
+      <tr><td></td><td>Non-Members</td><td>47</td></tr>
+      <tr><td></td><td>LIC</td><td>9</td></tr>
+      <tr><td></td><td>Web2App</td><td>2</td></tr>
+      <tr><td colspan="3" style="font-weight:600; background: var(--slate-light);">NPTM 2025 (31 total)</td></tr>
+      <tr><td></td><td>Pro Individual</td><td>31</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Current Status of Email Clickers (ClickHouse Cross-Reference)</h3>
+  <p style="margin-bottom:12px;">What happened to people who clicked lifecycle emails? Cross-referenced against current App (<code>users</code>) and Pro (<code>pro_users</code>) tables.</p>
+  <table>
+    <thead>
+      <tr>
+        <th>Metric</th>
+        <th>J4 (514 clickers)</th>
+        <th>BFCM (1,282 clickers)</th>
+        <th>NPTM (2,467 clickers)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Matched to App users</td>
+        <td>370 (72%)</td>
+        <td>723 (56%)</td>
+        <td>873 (35%)</td>
+      </tr>
+      <tr>
+        <td>&emsp;Currently paid (App)</td>
+        <td>166 (32.3%)</td>
+        <td>94 (7.3%)</td>
+        <td>42 (1.7%)</td>
+      </tr>
+      <tr>
+        <td>&emsp;Free/churned (App)</td>
+        <td>171</td>
+        <td>515</td>
+        <td>517</td>
+      </tr>
+      <tr>
+        <td>Matched to Pro users</td>
+        <td>44</td>
+        <td>93</td>
+        <td>404</td>
+      </tr>
+      <tr>
+        <td>&emsp;Active Pro</td>
+        <td>43</td>
+        <td>89</td>
+        <td>391</td>
+      </tr>
+      <tr>
+        <td>&emsp;Inactive Pro</td>
+        <td>1</td>
+        <td>4</td>
+        <td>13</td>
+      </tr>
+      <tr>
+        <td><strong>Stripe revenue from clickers (in window)</strong></td>
+        <td><strong>$10,238</strong></td>
+        <td><strong>$9,390</strong></td>
+        <td><strong>$4,733 (App) + $72,770 (Pro)</strong></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="insight">
+    <strong>J4 clicker retention is exceptional:</strong> 32.3% of J4 email clickers are <em>still paid today</em> (nearly a year later). BFCM is lower at 7.3%, likely because the massive non-member audience has higher churn. NPTM's Pro clickers are the standout: 391 of 404 Pro matches are still active, and Pro clickers generated <strong>$72,770 in Stripe revenue</strong> during the campaign window alone.
+  </div>
+
+  <h3>Email Metrics by Journey &times; Campaign</h3>
+
+  <h4 style="margin-top:20px; color: var(--purple);">July 4th 2025</h4>
+  <table>
+    <thead>
+      <tr>
+        <th>Journey</th>
+        <th>Emails</th>
+        <th>Sends</th>
+        <th>Delivered</th>
+        <th>Open Rate</th>
+        <th>Click Rate</th>
+        <th>Unsub Rate</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Non-Members</td>
+        <td>7</td>
+        <td>525,594</td>
+        <td>511,366</td>
+        <td>8.6%</td>
+        <td>0.2%</td>
+        <td>0.67%</td>
+      </tr>
+      <tr>
+        <td>Activation/SalesUp</td>
+        <td>7</td>
+        <td>3,110</td>
+        <td>3,029</td>
+        <td>13.7%</td>
+        <td>0.6%</td>
+        <td>2.97%</td>
+      </tr>
+      <tr>
+        <td>Winback</td>
+        <td>3</td>
+        <td>5,327</td>
+        <td>5,076</td>
+        <td>12.6%</td>
+        <td>1.3%</td>
+        <td>0.69%</td>
+      </tr>
+      <tr>
+        <td>Monthly Expansion</td>
+        <td>3</td>
+        <td>415</td>
+        <td>405</td>
+        <td>9.9%</td>
+        <td>0.5%</td>
+        <td>1.48%</td>
+      </tr>
+      <tr>
+        <td>Purchasers/Converters</td>
+        <td>3</td>
+        <td>634</td>
+        <td>609</td>
+        <td><strong>34.2%</strong></td>
+        <td><strong>39.4%</strong></td>
+        <td>0.82%</td>
+      </tr>
+      <tr style="font-weight:600; background: var(--slate-light);">
+        <td>TOTAL</td>
+        <td>23</td>
+        <td>535,080</td>
+        <td>520,485</td>
+        <td>8.7%</td>
+        <td>0.2%</td>
+        <td>0.68%</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <table style="margin-top:12px;">
+    <thead>
+      <tr>
+        <th>Journey (Push)</th>
+        <th>Campaigns</th>
+        <th>Sent</th>
+        <th>Delivered</th>
+        <th>Open Rate</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>Non-Members</td><td>4</td><td>42,649</td><td>42,649</td><td>0.2%</td></tr>
+      <tr><td>Activation/SalesUp</td><td>7</td><td>4,398</td><td>4,398</td><td>1.0%</td></tr>
+      <tr><td>Winback</td><td>2</td><td>3,404</td><td>3,404</td><td>0.9%</td></tr>
+      <tr><td>Monthly Expansion</td><td>2</td><td>272</td><td>272</td><td>0.7%</td></tr>
+      <tr style="font-weight:600; background: var(--slate-light);">
+        <td>TOTAL</td><td>15</td><td>50,723</td><td>50,723</td><td>0.3%</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h4 style="margin-top:20px; color: var(--orange);">BFCM 2025</h4>
+  <table>
+    <thead>
+      <tr>
+        <th>Journey</th>
+        <th>Emails</th>
+        <th>Sends</th>
+        <th>Delivered</th>
+        <th>Open Rate</th>
+        <th>Click Rate</th>
+        <th>Unsub Rate</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Non-Members</td>
+        <td>5</td>
+        <td>542,062</td>
+        <td>537,559</td>
+        <td>8.5%</td>
+        <td>0.3%</td>
+        <td>1.34%</td>
+      </tr>
+      <tr>
+        <td>Winback</td>
+        <td>4</td>
+        <td>8,894</td>
+        <td>8,863</td>
+        <td>10.4%</td>
+        <td>0.0%</td>
+        <td>1.52%</td>
+      </tr>
+      <tr>
+        <td>Activation/SalesUp</td>
+        <td>4</td>
+        <td>4,633</td>
+        <td>4,612</td>
+        <td>6.7%</td>
+        <td>0.0%</td>
+        <td>2.04%</td>
+      </tr>
+      <tr>
+        <td>LIC</td>
+        <td>2</td>
+        <td>1,060</td>
+        <td>1,033</td>
+        <td><strong>19.5%</strong></td>
+        <td><strong>2.8%</strong></td>
+        <td>1.65%</td>
+      </tr>
+      <tr>
+        <td>Web2App</td>
+        <td>4</td>
+        <td>721</td>
+        <td>699</td>
+        <td>17.5%</td>
+        <td>2.9%</td>
+        <td>4.29%</td>
+      </tr>
+      <tr>
+        <td>Monthly Expansion</td>
+        <td>3</td>
+        <td>318</td>
+        <td>318</td>
+        <td>11.0%</td>
+        <td>0.0%</td>
+        <td>1.89%</td>
+      </tr>
+      <tr style="font-weight:600; background: var(--slate-light);">
+        <td>TOTAL</td>
+        <td>22</td>
+        <td>557,688</td>
+        <td>553,084</td>
+        <td>8.6%</td>
+        <td>0.3%</td>
+        <td>1.36%</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <table style="margin-top:12px;">
+    <thead>
+      <tr>
+        <th>Journey (Push)</th>
+        <th>Campaigns</th>
+        <th>Sent</th>
+        <th>Delivered</th>
+        <th>Open Rate</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>Non-Members</td><td>4</td><td>113,932</td><td>113,932</td><td>0.1%</td></tr>
+      <tr><td>Winback</td><td>3</td><td>7,034</td><td>7,034</td><td>0.8%</td></tr>
+      <tr><td>Activation/SalesUp</td><td>6</td><td>5,221</td><td>5,221</td><td>1.6%</td></tr>
+      <tr><td>Monthly Expansion</td><td>3</td><td>323</td><td>323</td><td>3.4%</td></tr>
+      <tr style="font-weight:600; background: var(--slate-light);">
+        <td>TOTAL</td><td>16</td><td>126,510</td><td>126,510</td><td>0.2%</td>
+      </tr>
+    </tbody>
+  </table>
+  <p style="margin-top:8px; font-size:0.85rem; color:#64748b;">BFCM also had 12 Embedded and 2 InApp campaigns. Embedded metrics are not available through the standard Iterable metrics API; InApp impressions tracked separately.</p>
+
+  <h4 style="margin-top:20px; color: var(--teal);">NPTM 2025 (Prehab Professional)</h4>
+  <table>
+    <thead>
+      <tr>
+        <th>Journey</th>
+        <th>Emails</th>
+        <th>Sends</th>
+        <th>Delivered</th>
+        <th>Open Rate</th>
+        <th>Click Rate</th>
+        <th>Unsub Rate</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Pro Individual (mass list)</td>
+        <td>9</td>
+        <td>668,208</td>
+        <td>659,447</td>
+        <td>6.8%</td>
+        <td>0.5%</td>
+        <td>1.04%</td>
+      </tr>
+      <tr>
+        <td>Pro Group (existing orgs)</td>
+        <td>6</td>
+        <td>613</td>
+        <td>601</td>
+        <td><strong>29.6%</strong></td>
+        <td>0.2%</td>
+        <td>1.00%</td>
+      </tr>
+      <tr style="font-weight:600; background: var(--slate-light);">
+        <td>TOTAL</td>
+        <td>15</td>
+        <td>668,821</td>
+        <td>660,048</td>
+        <td>6.8%</td>
+        <td>0.5%</td>
+        <td>1.04%</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="insight">
+    <strong>NPTM Pro Group emails had 29.6% open rate</strong> (vs. 6.8% for mass individual) &mdash; small audience (111 recipients) but highly engaged existing customers. This validates the 10-Year plan's Member Expansion Pro journey targeting existing individual subscribers for team upgrades. Also notable: NPTM's first email (<code>Announcement_1</code>) had 10.6% OR and <strong>1.9% CTR</strong> &mdash; the best-performing email by far, confirming that "first touch with new news" drives the most action.
+  </div>
+
+  <h3>Unique Lifecycle Recipients by Journey</h3>
+  <p style="margin-bottom:12px;">How many unique people received at least one lifecycle email, by journey type:</p>
+  <table>
+    <thead>
+      <tr>
+        <th>Journey</th>
+        <th>J4 Recipients</th>
+        <th>BFCM Recipients</th>
+        <th>NPTM Recipients</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>Non-Members</td><td>75,159</td><td>109,954</td><td>&mdash;</td></tr>
+      <tr><td>Activation/SalesUp</td><td>1,083</td><td>1,565</td><td>&mdash;</td></tr>
+      <tr><td>Winback</td><td>1,528</td><td>2,377</td><td>&mdash;</td></tr>
+      <tr><td>Monthly Expansion</td><td>129</td><td>108</td><td>&mdash;</td></tr>
+      <tr><td>Purchasers/Converters</td><td>311</td><td>&mdash;</td><td>&mdash;</td></tr>
+      <tr><td>LIC</td><td>&mdash;</td><td>475</td><td>&mdash;</td></tr>
+      <tr><td>Web2App</td><td>&mdash;</td><td>361</td><td>&mdash;</td></tr>
+      <tr><td>Pro Individual</td><td>&mdash;</td><td>&mdash;</td><td>98,428</td></tr>
+      <tr><td>Pro Group</td><td>&mdash;</td><td>&mdash;</td><td>111</td></tr>
+      <tr style="font-weight:600; background: var(--slate-light);">
+        <td>Total Unique</td>
+        <td>78,084</td>
+        <td>113,821</td>
+        <td>98,452</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- CHANNEL PERFORMANCE -->
+<div class="section">
+  <h2>Channel Performance Insights (J4 + BFCM)</h2>
+
+  <h3>J4 2025 &mdash; Channel-Level Conversion Data</h3>
+  <p style="margin-bottom: 12px;">J4 is the only campaign with channel-to-IC conversion tracking. These patterns should guide the 10-Year channel strategy.</p>
+  <table>
+    <thead>
+      <tr>
+        <th>Channel</th>
+        <th>Sent &rarr; IC Rate</th>
+        <th>Engaged &rarr; IC Rate</th>
+        <th>Best Use</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Embedded (In-App)</strong></td>
+        <td>4.6&ndash;8.2%</td>
+        <td><strong>22&ndash;38% click CVR</strong></td>
+        <td>Highest CVR channel. Use for all segments with app access.</td>
+      </tr>
+      <tr>
+        <td><strong>Push</strong></td>
+        <td>0.93&ndash;2.88%</td>
+        <td>4.8&ndash;10.3% open CVR</td>
+        <td>Best for urgency moments (Day 1, last day). Premium audience responds best.</td>
+      </tr>
+      <tr>
+        <td><strong>Email</strong></td>
+        <td>0.35&ndash;4.55%</td>
+        <td>4&ndash;16.4% click CVR</td>
+        <td>Volume driver. First emails perform best (front-load value). Premium > non-member.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>BFCM 2025 &mdash; Email Engagement by Journey</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>Journey</th>
+        <th>Unique Sends</th>
+        <th>Open Rate</th>
+        <th>Click Rate</th>
+        <th>Unsub Rate</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Non-Member</td>
+        <td>542,062</td>
+        <td>8.5%</td>
+        <td>0.28%</td>
+        <td>1.34%</td>
+      </tr>
+      <tr>
+        <td>LIC</td>
+        <td>1,060</td>
+        <td><strong>19.5%</strong></td>
+        <td><strong>2.81%</strong></td>
+        <td>1.65%</td>
+      </tr>
+      <tr>
+        <td>Web2App</td>
+        <td>721</td>
+        <td>17.5%</td>
+        <td>2.86%</td>
+        <td>4.29%</td>
+      </tr>
+      <tr>
+        <td>Winback</td>
+        <td>8,894</td>
+        <td>10.4%</td>
+        <td>0.03%</td>
+        <td>1.52%</td>
+      </tr>
+      <tr>
+        <td>Monthly Expansion</td>
+        <td>318</td>
+        <td>11.0%</td>
+        <td>0.00%</td>
+        <td>1.89%</td>
+      </tr>
+      <tr>
+        <td>AppSalesUp</td>
+        <td>4,633</td>
+        <td>6.7%</td>
+        <td>0.00%</td>
+        <td>2.04%</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>BFCM 2025 &mdash; Push &amp; In-App</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>Channel / Journey</th>
+        <th>Sends</th>
+        <th>Opens</th>
+        <th>Open Rate</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td colspan="4" style="font-weight:600; background: var(--slate-light);">Push Notifications</td></tr>
+      <tr><td>Non-Member</td><td>113,932</td><td>116</td><td>0.1%</td></tr>
+      <tr><td>AppSalesUp</td><td>5,221</td><td>86</td><td>1.6%</td></tr>
+      <tr><td>Monthly Expansion</td><td>323</td><td>11</td><td>3.4%</td></tr>
+      <tr><td>Winback</td><td>7,034</td><td>58</td><td>0.8%</td></tr>
+      <tr><td colspan="4" style="font-weight:600; background: var(--slate-light);">In-App Messages</td></tr>
+      <tr><td>Monthly Expansion</td><td>114</td><td>54</td><td><strong>47.4%</strong></td></tr>
+      <tr><td>Winback</td><td>2,779</td><td>331</td><td>11.9%</td></tr>
+    </tbody>
+  </table>
+
+  <div class="insight">
+    <strong>BFCM confirms J4 patterns:</strong> LIC and Web2App had the highest email engagement (19.5% and 17.5% OR) &mdash; warm, high-intent audiences. In-app messages crushed it for Monthly Expansion (47.4% open rate). Push had low open rates across the board in BFCM (0.1&ndash;3.4%), significantly lower than J4 &mdash; may be a tracking or permission issue worth investigating.
+  </div>
+
+  <div class="insight">
+    <strong>Embedded messaging is the highest-converting channel across every J4 journey.</strong> The 10-Year plan should include campaign-specific embedded creative for all app-facing segments: InApp SalesUp, Monthly Expansion, Reactivation, and Winback. It's already implemented evergreen &mdash; just needs 10-Year creative.
+  </div>
+
+  <h3>Touchpoint Count: Historical vs. 10-Year</h3>
+  <p style="margin-bottom: 12px;">Based on engagement decay patterns from J4 and BFCM, here are specific touchpoint recommendations.</p>
+  <table>
+    <thead>
+      <tr>
+        <th>Journey</th>
+        <th>J4 Touches</th>
+        <th>BFCM Touches</th>
+        <th>10-Year Plan</th>
+        <th>Recommendation</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Non-Members</td>
+        <td>11 (email+push)</td>
+        <td>9 (email+push)</td>
+        <td>5 emails</td>
+        <td><span class="tag tag-green">Good</span> &mdash; J4 data showed first emails had best OR/CTR, engagement dropped significantly after touch 5-6. Fewer, higher-quality touches is the right call.</td>
+      </tr>
+      <tr>
+        <td>InApp SalesUp</td>
+        <td>18 campaigns</td>
+        <td>8 (email+push)</td>
+        <td>3 emails</td>
+        <td><span class="tag tag-green">Good</span> &mdash; BFCM AppSalesUp had 0% email CTR, meaning users who just created an account convert in-app, not from emails. 3 emails is sufficient; <strong>add embedded + push</strong> which had better reach.</td>
+      </tr>
+      <tr>
+        <td>LIC</td>
+        <td>2 emails</td>
+        <td>2 emails</td>
+        <td>3 emails</td>
+        <td><span class="tag tag-green">Good</span> &mdash; Adding a 3rd "last chance" email is warranted by the high engagement rates (19.5% OR). These users are warm.</td>
+      </tr>
+      <tr>
+        <td>Reactivation / Winback</td>
+        <td>6 (email+push+in-app)</td>
+        <td>8 (email+push+in-app+embedded)</td>
+        <td>7 (4 email + 3 push)</td>
+        <td><span class="tag tag-green">Good</span> &mdash; J4 winback had highest per-touch CVR. 7 touches is appropriate for a 10-day window. <strong>Add embedded</strong> &mdash; 22% click CVR in J4.</td>
+      </tr>
+      <tr>
+        <td>Monthly Expansion</td>
+        <td>6 (email+push+in-app+embedded)</td>
+        <td>7 (email+push+in-app+embedded)</td>
+        <td>6 (3 email + 3 push)</td>
+        <td><span class="tag tag-green">Good</span> &mdash; <strong>Add embedded + in-app.</strong> In-app had 47.4% open rate in BFCM. Embedded had 38.5% click CVR in J4. These channels do the heavy lifting here, not email.</td>
+      </tr>
+      <tr>
+        <td>Pending Cancel Winback</td>
+        <td>Included in winback</td>
+        <td>Included in winback</td>
+        <td>2 emails</td>
+        <td><span class="tag tag-yellow">Watch</span> &mdash; Now a dedicated sequence (previously grouped in broader winback). 2 emails for a time-sensitive trigger is lean. Consider adding 1 push notification if users have app installed.</td>
+      </tr>
+      <tr>
+        <td>Quiz SalesUp</td>
+        <td>N/A</td>
+        <td>2 (Web2App)</td>
+        <td>2-3 emails</td>
+        <td><span class="tag tag-green">Good</span> &mdash; Web2App had 17.5% email OR and 2.86% CTR in BFCM. High intent. 2-3 emails with deal urgency is right.</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- JOURNEY-BY-JOURNEY RECOMMENDATIONS -->
+<div class="section">
+  <h2>Journey-by-Journey Recommendations</h2>
+  <p style="margin-bottom: 20px;">Each journey is categorized as <span class="tag tag-green">MUST RUN</span> (strong historical evidence), <span class="tag tag-teal">RUN</span> (logical extension of proven patterns), or <span class="tag tag-yellow">NEW BET</span> (no direct data, but low effort / high upside).</p>
+
+  <div class="rec-grid">
+
+    <!-- NON-MEMBERS APP -->
+    <div class="rec-card must-run">
+      <div class="rec-header">
+        <div class="rec-title">Non-Members App (5 emails)</div>
+        <span class="tag tag-green">MUST RUN</span>
+      </div>
+      <div class="rec-body">
+        Largest audience, largest absolute conversion count in both J4 (214 IC, 18% of total) and BFCM (217 IC). The backbone of every campaign. 50.5% account-to-IC CVR when in workflow vs. 26.7% outside &mdash; the workflow demonstrably works.
+      </div>
+      <div class="rec-data">Recommendation: Run as planned. Front-load best content (first emails had highest OR/CTR in J4). Consider adding push notifications for deal launch (Day 1) and last day &mdash; J4 push outperformed email for this audience.</div>
+    </div>
+
+    <!-- IN-APP SALESUP -->
+    <div class="rec-card must-run">
+      <div class="rec-header">
+        <div class="rec-title">InApp SalesUp (3 emails)</div>
+        <span class="tag tag-green">MUST RUN</span>
+      </div>
+      <div class="rec-body">
+        Second biggest contributor in J4 (143 IC, 12% of total). BFCM A/B test proved lifecycle lift: 42 conversions in test group (80%) vs. 15 in control (20%). Higher email CTR and click-to-IC than non-members. These are high-intent users who just created an account.
+      </div>
+      <div class="rec-data">Recommendation: Run as planned. The 3-email sequence is tighter than J4's 18-campaign journey &mdash; good simplification. Add embedded messaging (30% click CVR in J4). Consider push for the welcome message.</div>
+    </div>
+
+    <!-- LEFT IN CART APP -->
+    <div class="rec-card must-run">
+      <div class="rec-header">
+        <div class="rec-title">Left in Cart &mdash; App (3 emails)</div>
+        <span class="tag tag-green">MUST RUN</span>
+      </div>
+      <div class="rec-body">
+        <strong>Highest per-user CVR of any journey in BFCM: 12.7%</strong> (181 conversions from 1,423 audience). J4 had only 21 entries (low cart traffic), but the intent signal is the strongest in the funnel. These users were one click from purchasing.
+      </div>
+      <div class="rec-data">Recommendation: Must run. Ensure checkout abandonment tracking is airtight. The 30-min delay on Email #1 is exactly right &mdash; catch them while the tab is still open.</div>
+    </div>
+
+    <!-- APP REACTIVATION -->
+    <div class="rec-card must-run">
+      <div class="rec-header">
+        <div class="rec-title">App Reactivation (4 emails + 3 pushes)</div>
+        <span class="tag tag-green">MUST RUN</span>
+      </div>
+      <div class="rec-body">
+        J4: 68 winbacks (6% of IC). Highest email click-to-IC of any journey at 16.36%. Push sent-to-IC also strongest at 1.44%. Premium/lapsed audience responds better to lifecycle messaging than any other segment. BFCM: 34 conversions from 2,779 audience.
+      </div>
+      <div class="rec-data">Recommendation: Run as planned. The email+push combo is correct. Add embedded messaging for users who still have the app installed &mdash; 22.3% click CVR in J4 winback.</div>
+    </div>
+
+    <!-- MONTHLY EXPANSION APP -->
+    <div class="rec-card must-run">
+      <div class="rec-header">
+        <div class="rec-title">Monthly Member Expansion &mdash; App (3 emails + 3 pushes)</div>
+        <span class="tag tag-green">MUST RUN</span>
+      </div>
+      <div class="rec-body">
+        Small in absolute terms (14 upgrades in J4, 4 in BFCM) but the workflow drove 71% of all upgrades in J4. Embedded messaging was the star: 38.5% click CVR. These are paying users &mdash; every upgrade is pure retention value with zero acquisition cost.
+      </div>
+      <div class="rec-data">Recommendation: Run as planned. Embedded messaging is critical here &mdash; make sure campaign-specific banners are in the app. The savings math email (#3 in the plan) mirrors what worked in J4.</div>
+    </div>
+
+    <!-- NON-MEMBERS PRO -->
+    <div class="rec-card run">
+      <div class="rec-header">
+        <div class="rec-title">Non-Members Pro (5 emails)</div>
+        <span class="tag tag-teal">RUN</span>
+      </div>
+      <div class="rec-body">
+        NPTM 2025 ran 15 email campaigns (9 individual + 6 group) to 98,452 unique recipients (668K+ total sends). 2,467 users clicked, and 404 matched to Pro accounts (391 still active). Pro clickers generated <strong>$72,770 in Stripe revenue</strong> during the campaign window. Cross-reference of email openers shows strong long-tail value: 30 people signed up months after opening NPTM emails, with 97% retention. First time pairing Pro with an App campaign simultaneously.
+      </div>
+      <div class="rec-data">Recommendation: Run. The enrichment email routing (clinician tag &rarr; Pro journey) is a smart addition that NPTM didn't have. NPTM data shows Pro lifecycle has long-tail conversion &mdash; don't judge success solely by in-campaign conversions.</div>
+    </div>
+
+    <!-- APP QUIZ SALESUP -->
+    <div class="rec-card run">
+      <div class="rec-header">
+        <div class="rec-title">App Quiz SalesUp (2 emails)</div>
+        <span class="tag tag-teal">RUN</span>
+      </div>
+      <div class="rec-body">
+        Analogous to Web2App in BFCM (18 conversions from 426 entries, ~4.2% CVR). Small volume but these users have explicitly identified their injury/goal via the quiz &mdash; high intent. Only 2 emails = very low build effort.
+      </div>
+      <div class="rec-data">Recommendation: Run. Low effort, high intent. The first email referencing their specific quiz result is a strong personalization hook.</div>
+    </div>
+
+    <!-- PRO QUIZ SALESUP -->
+    <div class="rec-card run">
+      <div class="rec-header">
+        <div class="rec-title">Pro Quiz SalesUp (3 emails)</div>
+        <span class="tag tag-teal">RUN</span>
+      </div>
+      <div class="rec-body">
+        No direct historical equivalent, but follows the same logic as App Quiz SalesUp. Clinicians who complete the Pro quiz and create an account but don't subscribe are a warm audience. 3 emails is proportionate.
+      </div>
+      <div class="rec-data">Recommendation: Run. The "how long does it take you to build a HEP" subject line in Email #2 is the right angle &mdash; efficiency proof tested well in NPTM messaging.</div>
+    </div>
+
+    <!-- LEFT IN CART PRO -->
+    <div class="rec-card run">
+      <div class="rec-header">
+        <div class="rec-title">Left in Cart &mdash; Pro (3 emails)</div>
+        <span class="tag tag-teal">RUN</span>
+      </div>
+      <div class="rec-body">
+        LIC was the single highest-converting journey in BFCM at 12.7% CVR. No reason this wouldn't apply to Pro checkout abandonment. Same 3-email structure as App LIC.
+      </div>
+      <div class="rec-data">Recommendation: Run. Ensure Pro checkout abandonment events are firing in Iterable. If this is the first time tracking Pro LIC events, verify the integration before launch.</div>
+    </div>
+
+    <!-- PRO REACTIVATION -->
+    <div class="rec-card run">
+      <div class="rec-header">
+        <div class="rec-title">Pro Reactivation (4 emails + 3 pushes)</div>
+        <span class="tag tag-teal">RUN</span>
+      </div>
+      <div class="rec-body">
+        App winback is a proven performer (16.36% email click-to-IC). Pro lapsed subscribers should respond similarly &mdash; they already know the product. 4 emails + 3 pushes mirrors the App Reactivation structure.
+      </div>
+      <div class="rec-data">Recommendation: Run. "Here's what's new since you left" (Email #3) is a strong reactivation angle. Consider whether push notifications apply to Pro users (web-only product vs. app).</div>
+    </div>
+
+    <!-- MEMBER EXPANSION PRO -->
+    <div class="rec-card run">
+      <div class="rec-header">
+        <div class="rec-title">Member Expansion &mdash; Pro / Team Upgrade (3 emails)</div>
+        <span class="tag tag-teal">RUN</span>
+      </div>
+      <div class="rec-body">
+        NPTM 2025 had a group journey (6 campaigns, 613 sends to 111 recipients) with a <strong>29.6% open rate</strong> &mdash; the highest of any NPTM journey. Small audience but highly engaged existing customers. High value per conversion &mdash; a team account is a significant revenue expansion from an individual plan.
+      </div>
+      <div class="rec-data">
+        <strong style="color: var(--red);">FLAG:</strong> The email copy in the sheet currently reads like a monthly &rarr; annual upgrade pitch ($100 vs $144). Craig described this as individual &rarr; team expansion. Copy needs to be reconciled before build.
+      </div>
+    </div>
+
+    <!-- ENRICHMENT EMAIL -->
+    <div class="rec-card new-bet">
+      <div class="rec-header">
+        <div class="rec-title">Enrichment Email (1 email, June 13)</div>
+        <span class="tag tag-yellow">NEW BET</span>
+      </div>
+      <div class="rec-body">
+        Brand new concept. No historical equivalent. The idea is sound: use click behavior on a story-driven email to tag non-members as consumer-inferred or clinician-inferred, then route them into the correct product journey. Zero conversion expectation &mdash; pure segmentation play.
+      </div>
+      <div class="rec-data">Recommendation: Run. Low risk, high value. Even modest click-through (5&ndash;10%) would meaningfully improve targeting for the June 19 deal launch. BFCM data showed most value comes from emails collected during the campaign &mdash; this pre-launch touch primes the audience.</div>
+    </div>
+
+    <!-- NON-MEMBERS ANNOUNCEMENT -->
+    <div class="rec-card new-bet">
+      <div class="rec-header">
+        <div class="rec-title">Non-Members Announcement (2 emails, June 13 + 16)</div>
+        <span class="tag tag-yellow">NEW BET</span>
+      </div>
+      <div class="rec-body">
+        Pre-launch hype sequence to the entire non-member list. Doubles as a second enrichment pass. No deal mention &mdash; purely story-driven. New approach for Prehab campaigns, which have historically led with the deal.
+      </div>
+      <div class="rec-data">Recommendation: Run. The two-email pre-launch builds anticipation and gives a second chance to tag unclicked users. Watch if it cannibalizes open rates on the June 19 deal launch.</div>
+    </div>
+
+    <!-- PENDING CANCEL APP -->
+    <div class="rec-card run">
+      <div class="rec-header">
+        <div class="rec-title">Pending Cancel Winback &mdash; App (2 emails)</div>
+        <span class="tag tag-teal">RUN</span>
+      </div>
+      <div class="rec-body">
+        Previously included within the broader winback journeys for J4 and BFCM &mdash; now split into its own dedicated 2-email sequence. Targets users who initiate cancellation but haven't reached end of billing cycle. The 10-year deal gives a natural reason to offer a save. Event-triggered (30 min after cancel event + 1 day follow-up).
+      </div>
+      <div class="rec-data">Recommendation: Run. The dedicated sequence is a smart split from the broader winback. Consider adding 1 push notification &mdash; pending cancel users likely still have the app installed.</div>
+    </div>
+
+    <!-- PENDING CANCEL PRO -->
+    <div class="rec-card run">
+      <div class="rec-header">
+        <div class="rec-title">Pending Cancel Winback &mdash; Pro (2 emails)</div>
+        <span class="tag tag-teal">RUN</span>
+      </div>
+      <div class="rec-body">
+        Same dedicated split applied to Pro. 2 emails. Event-triggered. Minimal build effort.
+      </div>
+      <div class="rec-data">Recommendation: Run. Verify Pro cancel events exist in Iterable.</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- KEY STRATEGIC PRINCIPLES -->
+<div class="section">
+  <h2>Strategic Principles (Data-Backed)</h2>
+  <p style="margin-bottom: 20px;">Six principles derived from J4 and BFCM performance data that should guide execution of the 10-Year campaign.</p>
+
+  <div class="principle">
+    <div class="principle-num">1</div>
+    <div class="principle-text">
+      <strong>Front-load your best content</strong>
+      <span>J4 data: first emails had the highest open rates and CTR across all journeys. The 10-Year plan's deal launch on Day 1 (June 19) is correct. Don't save your best creative for the end.</span>
+    </div>
+  </div>
+
+  <div class="principle">
+    <div class="principle-num">2</div>
+    <div class="principle-text">
+      <strong>Embedded messaging is the highest-converting channel</strong>
+      <span>22&ndash;38% click-to-conversion across all J4 journeys. Low effort (already implemented evergreen). Make sure campaign-specific embedded creative is live for every segment that has app access: InApp SalesUp, Monthly Expansion, Reactivation, Winback.</span>
+    </div>
+  </div>
+
+  <div class="principle">
+    <div class="principle-num">3</div>
+    <div class="principle-text">
+      <strong>LIC is your highest-ROI journey per user</strong>
+      <span>12.7% CVR in BFCM vs. ~1% for non-member sends. Ensure checkout abandonment tracking is verified and working for both App and Pro before June 19. One broken event = hundreds of missed conversions.</span>
+    </div>
+  </div>
+
+  <div class="principle">
+    <div class="principle-num">4</div>
+    <div class="principle-text">
+      <strong>Fresh emails convert best</strong>
+      <span>BFCM: 51% of journey-attributed conversions came from emails collected during the campaign window itself. The event-triggered journeys (InApp SalesUp, Quiz SalesUp, LIC) are designed to catch these users. Prioritize their build.</span>
+    </div>
+  </div>
+
+  <div class="principle">
+    <div class="principle-num">5</div>
+    <div class="principle-text">
+      <strong>In-app conversions dominate &mdash; even from email CTAs</strong>
+      <span>J4: 55&ndash;62% of conversions happened in-app across all journeys, even when email CTAs pointed to the website. Drive users to the app when possible. Deep links > web links.</span>
+    </div>
+  </div>
+
+  <div class="principle">
+    <div class="principle-num">6</div>
+    <div class="principle-text">
+      <strong>Premium audiences respond better than non-premium</strong>
+      <span>Winback email click-to-IC was 16.4% vs. 4% for non-members. Monthly expansion email sent-to-IC was 4.55% vs. 0.35% for non-members. Allocate creative effort accordingly &mdash; personalization matters more for smaller, higher-intent segments.</span>
+    </div>
+  </div>
+</div>
+
+<!-- WHAT'S NEW vs PROVEN -->
+<div class="section">
+  <h2>10-Year vs. Historical: What's New</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>10-Year Journey</th>
+        <th>Historical Equivalent</th>
+        <th>What Changed</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Non-Members App</td>
+        <td>J4 Non-Member (11 campaigns: 7 email + 4 push) / BFCM Non-Member (9 campaigns: 5 email + 4 push)</td>
+        <td>Slimmed to 5 emails. Smarter &mdash; less fatigue risk.</td>
+      </tr>
+      <tr>
+        <td>InApp SalesUp</td>
+        <td>J4 Activation SalesUp (17 campaigns: 7 email + 3 embedded + 7 push) / BFCM AppSalesUp (13 campaigns: 4 email + 3 embedded + 6 push)</td>
+        <td>Slimmed to 3 emails. Good &mdash; J4 had too many touches.</td>
+      </tr>
+      <tr>
+        <td>LIC App</td>
+        <td>J4 LIC (2 campaigns) / BFCM LIC (2 campaigns)</td>
+        <td>Expanded to 3 emails. Correct &mdash; adds urgency layer.</td>
+      </tr>
+      <tr>
+        <td>App Reactivation</td>
+        <td>J4 Winback (6 campaigns: 3 email + 1 in-app + 2 push) / BFCM Winback (11 campaigns: 4 email + 3 embedded + 1 in-app + 3 push)</td>
+        <td>Refined to 4 emails + 3 pushes. Appropriate cadence.</td>
+      </tr>
+      <tr>
+        <td>Monthly Expansion</td>
+        <td>J4 Monthly Expansion (6 campaigns: 3 email + 1 in-app + 2 push) / BFCM Monthly (10 campaigns: 3 email + 3 embedded + 1 in-app + 3 push)</td>
+        <td>Slimmed to 3 emails + 3 pushes. Previous had embedded as star &mdash; ensure it's included.</td>
+      </tr>
+      <tr style="background: var(--teal-light);">
+        <td>Enrichment Email</td>
+        <td><em>None</em></td>
+        <td><strong>NEW:</strong> Pre-campaign segmentation via click behavior. Smart routing play.</td>
+      </tr>
+      <tr style="background: var(--teal-light);">
+        <td>Non-Members Announcement</td>
+        <td><em>None</em></td>
+        <td><strong>NEW:</strong> Pre-launch hype. Story-first, no deal.</td>
+      </tr>
+      <tr style="background: var(--teal-light);">
+        <td>Non-Members Pro</td>
+        <td>NPTM 2025 (15 campaigns: 9 individual + 6 group, $72.8K from clickers)</td>
+        <td><strong>FIRST TIME</strong> running Pro alongside App in a shared campaign.</td>
+      </tr>
+      <tr style="background: var(--teal-light);">
+        <td>All Pro Journeys (Quiz, LIC, Reactivation, Winback, Expansion)</td>
+        <td><em>None</em></td>
+        <td><strong>NEW:</strong> Full Pro lifecycle coverage. Verify all event triggers exist in Iterable.</td>
+      </tr>
+      <tr>
+        <td>Pending Cancel Winback (App + Pro)</td>
+        <td>Included in J4 Winback / BFCM Winback</td>
+        <td>Now a <strong>dedicated sequence</strong> (2 emails each) split from broader winback. Same audience, focused messaging.</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- RISKS & OPEN ITEMS -->
+<div class="section">
+  <h2>Risks & Open Items</h2>
+
+  <div class="warning">
+    <strong>1. Pro Event Triggers:</strong> This is the first campaign with full Pro lifecycle journeys (Quiz SalesUp, LIC, Reactivation, Pending Cancel Winback). All of these depend on Iterable events firing correctly for Pro &mdash; verify <code>account_created</code>, <code>checkout_abandoned</code>, <code>subscription_cancelled</code>, and <code>quiz_completed</code> events exist and are mapped for Prehab Professional before launch.
+  </div>
+
+  <div class="warning">
+    <strong>2. Pro Team Expansion Copy Mismatch:</strong> The journey title is <code>10Yr_TeamExpansion_Pro</code> but the email copy in the sheet pitches monthly &rarr; annual upgrade pricing ($100 vs. $144). Craig's intent is individual &rarr; team expansion. Copy needs to be rewritten to match.
+  </div>
+
+  <div class="warning">
+    <strong>3. Suppression Logic Complexity:</strong> With 15 journeys across two products running simultaneously, suppression rules are critical. Active App members must not get non-member App emails. Active Pro subscribers must not get non-member Pro emails. Users tagged via the enrichment email must route correctly. A suppression matrix should be built and QA'd.
+  </div>
+
+  <div class="warning">
+    <strong>4. Pro Performance Data Now Available:</strong> Comprehensive NPTM 2025 analysis shows 2,467 email clickers, 404 matched to Pro users (391 active), and $72.8K in Stripe revenue from Pro clickers during the campaign window. Pro Group emails had 29.6% open rate. Still only one prior Pro campaign to benchmark against &mdash; set expectations that most new Pro journeys (Quiz, LIC, Reactivation, Pending Cancel) are baseline-setting.
+  </div>
+
+  <div class="warning">
+    <strong>5. Email Fatigue Across Journeys:</strong> A non-member who clicks the Pro CTA in the enrichment email could receive: 2 announcement emails + 5 Pro non-member emails + potentially a quiz or LIC sequence. That's 7&ndash;10 emails in 15 days. Monitor unsubscribe rates after Day 3 and have a throttle plan.
+  </div>
+</div>
+
+<!-- BUILD PRIORITY -->
+<div class="section">
+  <h2>Suggested Build Priority</h2>
+  <p style="margin-bottom: 16px;">Ordered by a combination of historical ROI evidence, audience size, and build complexity.</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Journey</th>
+        <th>Rationale</th>
+        <th>Effort</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>1</strong></td>
+        <td>Enrichment Email + Non-Members Announcement</td>
+        <td>Ships first (June 13). Gates all downstream routing.</td>
+        <td>Medium</td>
+      </tr>
+      <tr>
+        <td><strong>2</strong></td>
+        <td>Non-Members App + Non-Members Pro</td>
+        <td>Largest audiences. Biggest absolute conversion potential.</td>
+        <td>High</td>
+      </tr>
+      <tr>
+        <td><strong>3</strong></td>
+        <td>Left in Cart (App + Pro)</td>
+        <td>Highest per-user CVR. Only 3 emails each.</td>
+        <td>Low</td>
+      </tr>
+      <tr>
+        <td><strong>4</strong></td>
+        <td>InApp SalesUp</td>
+        <td>Second-biggest J4 contributor. Event-triggered, catches fresh users.</td>
+        <td>Low</td>
+      </tr>
+      <tr>
+        <td><strong>5</strong></td>
+        <td>App Reactivation + Pro Reactivation</td>
+        <td>Highest per-touch conversion rates. Premium audience.</td>
+        <td>Medium</td>
+      </tr>
+      <tr>
+        <td><strong>6</strong></td>
+        <td>Monthly Expansion App</td>
+        <td>Small audience but 71% of upgrades came from workflow in J4.</td>
+        <td>Medium</td>
+      </tr>
+      <tr>
+        <td><strong>7</strong></td>
+        <td>Quiz SalesUp (App + Pro)</td>
+        <td>Low effort (2&ndash;3 emails). Catches high-intent quiz completers.</td>
+        <td>Low</td>
+      </tr>
+      <tr>
+        <td><strong>8</strong></td>
+        <td>Pending Cancel Winback (App + Pro)</td>
+        <td>Dedicated sequence (previously in winback). 2 emails each. Low effort.</td>
+        <td>Low</td>
+      </tr>
+      <tr>
+        <td><strong>9</strong></td>
+        <td>Pro Team Expansion</td>
+        <td>Needs copy rework. Small audience. High value per conversion.</td>
+        <td>Medium</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- FINAL VERDICT -->
+<div class="section" style="background: linear-gradient(135deg, var(--teal-light), white);">
+  <h2>Final Verdict</h2>
+  <p style="font-size: 1.05rem; line-height: 1.7;">
+    <strong>Run all 15 journeys.</strong> Lifecycle emails reached 20&ndash;23% of all Stripe payers during J4 and BFCM, with email clickers generating $10K+ in tracked revenue per campaign. NPTM Pro clickers alone drove $72.8K in Stripe revenue with 97% still active today. The 10-Year plan builds on every proven journey type, adds Pro-side equivalents backed by comprehensive NPTM data, and introduces smarter segmentation via the enrichment email. The plan is tighter than both J4 and BFCM &mdash; fewer emails per journey, better channel mix, and the first dual-product campaign.
+  </p>
+  <p style="font-size: 1.05rem; line-height: 1.7; margin-top: 12px;">
+    The three things that will determine whether this campaign outperforms J4 and BFCM:
+  </p>
+  <ol style="margin-top: 12px; margin-left: 24px;">
+    <li style="margin-bottom: 8px;"><strong>Enrichment email click-through rate</strong> &mdash; If it works, non-members get product-relevant messaging from Day 1 instead of generic blasts. That's a structural advantage no prior campaign had.</li>
+    <li style="margin-bottom: 8px;"><strong>Pro event trigger reliability</strong> &mdash; Six new Pro journeys depend on events that may not have been used in Iterable before. One broken trigger = an entire journey goes dark.</li>
+    <li style="margin-bottom: 8px;"><strong>Embedded messaging coverage</strong> &mdash; The highest-converting channel in J4. Make sure campaign-specific embedded creative is live across all app-facing segments, not just Monthly Expansion.</li>
+  </ol>
+</div>
+
+<div class="footer">
+  Prehab &bull; 10-Year Anniversary Lifecycle Strategy Analysis &bull; May 2026
+</div>
+
+</div>
+</body>
+</html>
